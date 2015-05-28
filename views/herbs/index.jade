@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+
+  h1  My Herbs
+
+  ul
+    each herb in herbs
+      if herb.inStock
+        li #{herb.name} (#{herb.oz} oz) - available
+      else
+        li #{herb.name} (#{herb.oz} oz) - unavailable

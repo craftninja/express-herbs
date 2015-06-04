@@ -10,4 +10,16 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.post('/', function(req, res, next) {
+  herb = new Herb({
+    name: req.body['herb[name]'],
+    oz: req.body['herb[oz]'],
+    inStock: req.body['herb[inStock]']
+  });
+
+  herb.save(function(err, herb) {
+    res.redirect('/herbs')
+  })
+});
+
 module.exports = router;

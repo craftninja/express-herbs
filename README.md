@@ -107,3 +107,34 @@
     > db.herbs.insert({name: "Elderflower", oz: 2, inStock: false})
     WriteResult({ "nInserted" : 1 })
     ```
+
+1. User can create new herb from index page
+  * Add a new herb form on the index page
+
+    ```
+    h3  Add an herb
+    form(action='/herbs' method='post')
+      label Name
+      input(type='text' name='herb[name]')
+      label Oz
+      input(type='number' name='herb[oz]')
+      label In Stock?
+      input(type='checkbox' name='herb[inStock]')
+      input(type='submit' value='Add this herb')
+    ```
+
+  * Add a create route
+
+    ```
+    router.post('/', function(req, res, next) {
+      herb = new Herb({
+        name: req.body['herb[name]'],
+        oz: req.body['herb[oz]'],
+        inStock: req.body['herb[inStock]']
+      });
+
+      herb.save(function(err, herb) {
+        res.redirect('/herbs')
+      })
+    });
+    ```

@@ -4,6 +4,16 @@ block content
 
   h1  My Herbs
 
+  h3  Add an herb
+  form(action='/herbs' method='post')
+    label Name
+    input(type='text' name='herb[name]')
+    label Oz
+    input(type='number' name='herb[oz]')
+    label In Stock?
+    input(type='checkbox' name='herb[inStock]')
+    input(type='submit' value='Add this herb')
+
   ul
     each herb in herbs
       if herb.inStock

@@ -23,6 +23,7 @@ block content
           td available
           td
             a(href='#' class='edit') Edit
+            a(href='/herbs/' + herb.id + '/delete') Delete
           form(action='/herbs/' + herb.id method='post')
             td(style="display: none;")
               label Name
@@ -45,6 +46,7 @@ block content
           td unavailable
           td
             a(href='#' class='edit') Edit
+            a(href='/herbs/' + herb.id + '/delete') Delete
           form(action='/herbs/#{herb.id}' method='post')
             td(style="display: none;")
               label Name

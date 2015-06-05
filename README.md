@@ -188,3 +188,22 @@
       });
     });
     ```
+
+1. User can delete herbs
+  * Add a delete link in index
+
+    ```
+    a(href='/herbs/' + herb.id + '/delete') Delete
+    ```
+
+  * Add a delete route to `routes/herbs.js`
+
+    ```
+    router.get('/:id/delete', function(req, res, next) {
+      Herb.findOne({_id: req.params.id}, function(err, herb) {
+        if (err) return console.log(err);
+        herb.remove();
+        res.redirect('/herbs');
+      });
+    });
+    ```

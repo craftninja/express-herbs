@@ -35,4 +35,12 @@ router.post('/:id', function(req, res, next) {
   });
 });
 
+router.get('/:id/delete', function(req, res, next) {
+  Herb.findOne({_id: req.params.id}, function(err, herb) {
+    if (err) return console.log(err);
+    herb.remove();
+    res.redirect('/herbs');
+  });
+});
+
 module.exports = router;

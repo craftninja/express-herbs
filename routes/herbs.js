@@ -22,4 +22,17 @@ router.post('/', function(req, res, next) {
   })
 });
 
+router.post('/:id', function(req, res, next) {
+  Herb.findOne({_id: req.params.id}, function(err, herb) {
+    if (err) return console.log(err);
+    herb.name = req.body['herb[name]'];
+    herb.oz = req.body['herb[oz]'];
+    herb.inStock = req.body['herb[inStock]'];
+    herb.save(function(err, herb) {
+      if (err) return console.log(err);
+      res.redirect('/herbs');
+    })
+  });
+});
+
 module.exports = router;

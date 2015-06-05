@@ -14,9 +14,49 @@ block content
     input(type='checkbox' name='herb[inStock]')
     input(type='submit' value='Add this herb')
 
-  ul
+  table
     each herb in herbs
       if herb.inStock
-        li #{herb.name} (#{herb.oz} oz) - available
+        tr
+          td #{herb.name}
+          td (#{herb.oz} oz)
+          td available
+          td
+            a(href='#' class='edit') Edit
+          form(action='/herbs/' + herb.id method='post')
+            td(style="display: none;")
+              label Name
+              input(type='text' name='herb[name]' value=herb.name)
+            td(style="display: none;")
+              label Oz
+              input(type='number' name='herb[oz]' value=herb.oz)
+            td(style="display: none;")
+              label In Stock?
+              if herb.inStock
+                input(type='checkbox' name='herb[inStock]' checked='#{herb.inStock}' )
+              else
+                input(type='checkbox' name='herb[inStock]')
+            td(style="display: none;")
+              input(type='submit' value='Update this herb')
       else
-        li #{herb.name} (#{herb.oz} oz) - unavailable
+        tr
+          td #{herb.name}
+          td (#{herb.oz} oz)
+          td unavailable
+          td
+            a(href='#' class='edit') Edit
+          form(action='/herbs/#{herb.id}' method='post')
+            td(style="display: none;")
+              label Name
+              input(type='text' name='herb[name]' value=herb.name)
+            td(style="display: none;")
+              label Oz
+              input(type='number' name='herb[oz]' value=herb.oz)
+            td(style="display: none;")
+              label In Stock?
+              if herb.inStock
+                input(type='checkbox' name='herb[inStock]' checked='#{herb.inStock}' )
+              else
+                input(type='checkbox' name='herb[inStock]')
+            td(style="display: none;")
+              input(type='submit' value='Update this herb')

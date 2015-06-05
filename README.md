@@ -138,3 +138,53 @@
       })
     });
     ```
+
+1. User can edit an herb from the index page
+  * Add form that is not displayed
+
+    ```
+    form(action='/herbs/#{herb.id}' method='post')
+      td(style="display: none;")
+        label Name
+        input(type='text' name='herb[name]' value=herb.name)
+      td(style="display: none;")
+        label Oz
+        input(type='number' name='herb[oz]' value=herb.oz)
+      td(style="display: none;")
+        label In Stock?
+        if herb.inStock
+          input(type='checkbox' name='herb[inStock]' checked='#{herb.inStock}' )
+        else
+          input(type='checkbox' name='herb[inStock]')
+      td(style="display: none;")
+        input(type='submit' value='Update this herb')
+    ```
+
+  * Add jquery to app
+    * create a new file 'public/javascripts/jquery.js' and paste in the content from [http://jquery.com/download/](http://jquery.com/download/) (uncompressed 1.x version was the version I used).
+  * Add app.js file to app with following content:
+
+    ```
+    $(document).ready(function() {
+      $('.edit').click(function() {
+        $(this).closest('tr').find('td').toggle();
+      });
+    });
+    ```
+
+  * Add update route to `routes/herbs.js`
+
+    ```
+    router.post('/:id', function(req, res, next) {
+      Herb.findOne({_id: req.params.id}, function(err, herb) {
+        if (err) return console.log(err);
+        herb.name = req.body['herb[name]'];
+        herb.oz = req.body['herb[oz]'];
+        herb.inStock = req.body['herb[inStock]'];
+        herb.save(function(err, herb) {
+          if (err) return console.log(err);
+          res.redirect('/herbs');
+        })
+      });
+    });
+    ```
